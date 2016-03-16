@@ -34,7 +34,7 @@ while True:
             best_count = contour
 
     x, y, w, h = cv2.boundingRect(best_count)
-    rect = cv2.rectangle(frame, (x, y), (x+w, y+h), (0,255,0), 2)
+    rect = cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
 
     cv2.imshow('Preview', frame)
 
