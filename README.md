@@ -2,7 +2,7 @@
 My attempt at the world of computer vision. More specifically, openCV with the Rasperry Pi 2 Model B and camera module.
 Written in Python.
 
-This is an extremely basic foray into object tracking with [openCV](http://opencv.org/). By converting an image to the *H*ue *S*aturation *V*alue color space, it is easier to track a uniformly colored object, as opposed to the typical *BGR** color space. (*In openCV's case, the image arrays are interpreted as  [Blue, Green, Red], *NOT* [Red, Green, Blue])
+This is an extremely basic foray into object tracking with [openCV](http://opencv.org/). By converting an image to the **H**ue **S**aturation **V**alue color space, it is easier to track a uniformly colored object, as opposed to the typical **BGR** color space. (In openCV's case, the image arrays are interpreted as  [Blue, Green, Red], **_NOT_** [Red, Green, Blue])
 
 A range of acceptable HSV ranges are added in and your (uniformly) colored object of choice should be the only thing to appear.
 
