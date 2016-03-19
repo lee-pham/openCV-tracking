@@ -29,7 +29,6 @@ def mouse_action(event, x, y, flags, param):
         Hi, Hf = np.amin(h), np.amax(h)
         Si, Sf = np.amin(s), np.amax(s)
         Vi, Vf = np.amin(v), np.amax(v)
-        print(Hi, Hf, Si, Sf, Vi, Vf)
         print('release')
 
 
