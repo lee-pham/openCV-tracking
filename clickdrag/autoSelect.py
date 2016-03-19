@@ -29,7 +29,12 @@ def mouse_action(event, x, y, flags, param):
         Hi, Hf = np.amin(h), np.amax(h)
         Si, Sf = np.amin(s), np.amax(s)
         Vi, Vf = np.amin(v), np.amax(v)
+        print(Hi, Hf, Si, Sf, Vi, Vf)
         print('release')
+
+    if event == cv2.EVENT_LBUTTONUP and (ix, iy) == (x, y):
+        Hi, Si, Vi = 0, 0, 0
+        Hf, Sf, Vf = 179, 255, 255
 
 
 cap = cv2.VideoCapture(0)
