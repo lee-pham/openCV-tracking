@@ -24,7 +24,7 @@ def mouse_action(event, x, y, flags, param):
         drawing = False
         print(ix, iy, x, y)
         print(hsv)
-        ROI = hsv[min(iy, y):abs(iy - y)+1, min(ix, x):abs(ix - x)+1]
+        ROI = hsv[min(iy, y):min(iy, y)+abs(iy-y) +1, min(ix,x):min(ix,x)+abs(ix-x) +1]
         h, s, v = cv2.split(ROI)
         Hi, Hf = np.amin(h), np.amax(h)
         Si, Sf = np.amin(s), np.amax(s)
