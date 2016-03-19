@@ -9,7 +9,7 @@ Written in Python.
 
 >For videos, a different approach had to be taken as a new image is being constantly written at all times. The copy method was foregoed and drawing the rectangles had to be moved to the main video loop. Essentially, a rectangle is constantly being drawn at all times, as opposed to a rectangle being drawn once, with the same image being constantly displayed.
 
->I've spent a great deal of time figuring out how to best draw rectanles (without a following cascade) for static and video--I hope this helps!
+>I've spent a great deal of time figuring out how to best draw rectangles (without a following cascade) for static and video--I hope this helps!
 
 
 
