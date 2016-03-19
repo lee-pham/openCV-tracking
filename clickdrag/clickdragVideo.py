@@ -1,6 +1,7 @@
 import cv2
 
-drawing = False
+drawing = False  # initialize drawing status
+# initialize initial and final x, y coordinates
 ix, iy = 0, 0
 fx, fy = 0, 0
 
@@ -24,6 +25,7 @@ def mouse_action(event, x, y, flags, param):
 
 
 cap = cv2.VideoCapture(0)
+# set resolution
 cap.set(3, 640)
 cap.set(4, 480)
 
@@ -32,7 +34,8 @@ cv2.setMouseCallback('Preview', mouse_action)
 
 while True:
     _, img = cap.read()
-
+    
+    # if drawing, draw blue rectangle that is variable. else, draw final white rectangle
     if drawing:
         cv2.rectangle(img, (ix, iy), (fx, fy), (255, 0, 0), 2)
     else:
