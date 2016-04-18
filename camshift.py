@@ -2,17 +2,11 @@ import cv2
 import numpy as np
 
 drawing = False
-ix, iy = 0, 0
-fx, fy = 0, 0
-Hi, Si, Vi = 0, 0, 0
-Hf, Sf, Vf = 179, 255, 255
-HSVi = np.array([Hi, Si, Vi])
-HSVf = np.array([Hf, Sf, Vf])
-cammode = False
+camshift = False
 
 
 def mouse_action(event, x, y, flags, param):
-    global drawing, ix, iy, fx, fy, Hi, Si, Vi, Hf, Sf, Vf, track_window, cammode, roi, hsv_roi, mask, term_crit, roi_hist, hsv
+    global drawing, ix, iy, fx, fy, Hi, Si, Vi, Hf, Sf, Vf, track_window, hsv, camshift, roi_hist, term_crit
     if event == cv2.EVENT_LBUTTONDOWN:
         drawing = True
         ix, iy = x, y
@@ -32,22 +26,22 @@ def mouse_action(event, x, y, flags, param):
         Hi, Hf = np.amin(h), np.amax(h)
         Si, Sf = np.amin(s), np.amax(s)
         Vi, Vf = np.amin(v), np.amax(v)
-
+        HSVi = np.array([Hi, Si, Vi])
+        HSVf = np.array([Hf, Sf, Vf])
         mask = cv2.inRange(hsv_roi, HSVi, HSVf)
         roi_hist = cv2.calcHist([hsv_roi], [0], mask, [180], [0, 180])
         cv2.normalize(roi_hist, roi_hist, 0, 255, cv2.NORM_MINMAX)
         term_crit = (cv2.TERM_CRITERIA_EPS | cv2.TERM_CRITERIA_COUNT, 10, 1)
 
-        cammode = True
+        camshift = True
 
     if event == cv2.EVENT_LBUTTONUP and (ix, iy) == (x, y):
         Hi, Si, Vi = 0, 0, 0
         Hf, Sf, Vf = 179, 255, 255
-        cammode = False
-        print('Reset')
+        camshift = False
 
-cv2.namedWindow('img2')
-cv2.setMouseCallback('img2', mouse_action)
+cv2.namedWindow('Preview')
+cv2.setMouseCallback('Preview', mouse_action)
 cap = cv2.VideoCapture(0)
 # set resolution
 cap.set(3, 640)
@@ -56,9 +50,7 @@ cap.set(4, 480)
 while True:
     ret, frame = cap.read()
 
-
-    # img2 = hsv
-    if cammode:
+    if camshift:
         hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
         dst = cv2.calcBackProject([hsv], [0], roi_hist, [0, 180], 1)
         ret, track_window = cv2.CamShift(dst, track_window, term_crit)
@@ -66,11 +58,10 @@ while True:
         pts = np.int0(pts)
         cv2.polylines(frame, [pts], True, 255, 2)
 
-
     if drawing:
         cv2.rectangle(frame, (ix, iy), (fx, fy), (255, 0, 0), 2)
 
-    cv2.imshow('img2', frame)
+    cv2.imshow('Preview', frame)
 
     k = cv2.waitKey(1) & 0xFF
     if k == 27:
