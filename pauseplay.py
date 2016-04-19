@@ -71,13 +71,14 @@ while True:
         cv2.rectangle(frame, (ix, iy), (fx, fy), (255, 0, 0), 1)
 
     k = cv2.waitKey(1) & 0xFF
-    if k == 27:
-        break
-
     if k == ord('p'):
         pause = not pause
         pause_frame = frame.copy()
         print(pause)
+    elif k == 27:
+        break
+
+
 
 cv2.destroyAllWindows()
 cap.release()
