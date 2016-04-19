@@ -49,7 +49,7 @@ cap = cv2.VideoCapture('tennis.m4v')
 #cap = cv2.VideoCapture(0)
 
 # set resolution
-cap.set(3, 854)
+cap.set(3, 640)
 cap.set(4, 480)
 k = cv2.waitKey(1) & 0xFF
 
