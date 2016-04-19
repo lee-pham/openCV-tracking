@@ -54,17 +54,10 @@ cap.set(4, 480)
 k = cv2.waitKey(1) & 0xFF
 
 while True:
-    k = cv2.waitKey(1) & 0xFF
-
-    ret, frame = cap.read()
-    if k == ord('s'):
-        pause = not pause
-        img2 = frame.copy()
-        print(pause)
-
     if pause:
-        # img2 = frame.copy()
         cv2.imshow('Preview', img2)
+    else:
+        ret, frame = cap.read()
 
     if camshift:
         hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
@@ -74,15 +67,17 @@ while True:
         pts = np.int0(pts)
         cv2.polylines(frame, [pts], True, 255, 2)
 
-    if drawing:
+    elif drawing:
         cv2.rectangle(frame, (ix, iy), (fx, fy), (255, 0, 0), 1)
-
-    if not pause:
-        cv2.imshow('Preview', frame)
 
     k = cv2.waitKey(1) & 0xFF
     if k == 27:
         break
+
+    if k == ord('p'):
+        pause = not pause
+        pause_frame = frame.copy()
+        print(pause)
 
 cv2.destroyAllWindows()
 cap.release()
