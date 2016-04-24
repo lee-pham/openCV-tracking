@@ -54,10 +54,6 @@ cap.set(4, 480)
 k = cv2.waitKey(1) & 0xFF
 
 while True:
-    if pause:
-        cv2.imshow('Preview', img2)
-    else:
-        ret, frame = cap.read()
 
     if camshift:
         hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
@@ -78,7 +74,11 @@ while True:
     elif k == 27:
         break
 
-
+    if pause:
+        cv2.imshow('Preview', pause_frame)
+    else:
+        ret, frame = cap.read()
+        cv2.imshow('Preview', frame)
 
 cv2.destroyAllWindows()
 cap.release()
