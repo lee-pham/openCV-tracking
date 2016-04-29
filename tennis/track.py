@@ -26,10 +26,10 @@ def mouse_action(event, x, y, flags, param):
         Hi, Hf = np.amin(h), np.amax(h)
         Si, Sf = np.amin(s), np.amax(s)
         Vi, Vf = np.amin(v), np.amax(v)
-        # HSVi = np.array([Hi, Si, Vi])
-        # HSVf = np.array([Hf, Sf, Vf])
-        HSVi = np.array([0, 60, 32])
-        HSVf = np.array([179, 255, 255])
+        HSVi = np.array([Hi, Si, Vi])
+        HSVf = np.array([Hf, Sf, Vf])
+        # HSVi = np.array([0, 60, 32])
+        # HSVf = np.array([179, 255, 255])
         mask = cv2.inRange(hsv_roi, HSVi, HSVf)
         roi_hist = cv2.calcHist([hsv_roi], [0], mask, [180], [0, 180])
         cv2.normalize(roi_hist, roi_hist, 0, 255, cv2.NORM_MINMAX)
@@ -41,6 +41,7 @@ def mouse_action(event, x, y, flags, param):
         Hi, Si, Vi = 0, 0, 0
         Hf, Sf, Vf = 179, 255, 255
         camshift = False
+        drawing = False
 
 cv2.namedWindow('Preview')
 cv2.setMouseCallback('Preview', mouse_action)
@@ -61,6 +62,12 @@ while True:
     elif k == 27:
         break
 
+    if pause:
+        pass
+        #frame = pause_frame
+    else:
+        ret, frame = cap.read()
+
     if camshift:
         hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
         dst = cv2.calcBackProject([hsv], [0], roi_hist, [0, 180], 1)
@@ -72,12 +79,6 @@ while True:
     elif drawing:
         frame = pause_frame.copy()
         cv2.rectangle(frame, (ix, iy), (fx, fy), (255, 0, 0), 1)
-
-    if pause:
-        pass
-        #frame = pause_frame
-    else:
-        ret, frame = cap.read()
 
     cv2.imshow('Preview', frame)
 cv2.destroyAllWindows()
