@@ -75,10 +75,11 @@ while True:
         break
 
     if pause:
-        cv2.imshow('Preview', pause_frame)
+        frame = pause_frame
     else:
         ret, frame = cap.read()
-        cv2.imshow('Preview', frame)
 
+    cv2.imshow('Preview', frame)
+    
 cv2.destroyAllWindows()
 cap.release()
