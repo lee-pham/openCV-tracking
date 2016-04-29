@@ -1,6 +1,5 @@
 import cv2
 import numpy as np
-import time
 
 drawing = False
 camshift = False
@@ -45,7 +44,7 @@ def mouse_action(event, x, y, flags, param):
 
 cv2.namedWindow('Preview')
 cv2.setMouseCallback('Preview', mouse_action)
-cap = cv2.VideoCapture('tennis.m4v')
+cap = cv2.VideoCapture('tennissmall.mov')
 #cap = cv2.VideoCapture(0)
 
 # set resolution
@@ -54,6 +53,13 @@ cap.set(4, 480)
 k = cv2.waitKey(1) & 0xFF
 
 while True:
+    k = cv2.waitKey(1) & 0xFF
+    if k == ord('p'):
+        pause = not pause
+        pause_frame = frame.copy()
+        print(pause)
+    elif k == 27:
+        break
 
     if camshift:
         hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
@@ -64,22 +70,15 @@ while True:
         cv2.polylines(frame, [pts], True, 255, 2)
 
     elif drawing:
+        frame = pause_frame.copy()
         cv2.rectangle(frame, (ix, iy), (fx, fy), (255, 0, 0), 1)
 
-    k = cv2.waitKey(1) & 0xFF
-    if k == ord('p'):
-        pause = not pause
-        pause_frame = frame.copy()
-        print(pause)
-    elif k == 27:
-        break
-
     if pause:
-        frame = pause_frame
+        pass
+        #frame = pause_frame
     else:
         ret, frame = cap.read()
 
     cv2.imshow('Preview', frame)
-    
 cv2.destroyAllWindows()
 cap.release()
