@@ -8,7 +8,7 @@ upper = np.array([179, 255, 255], dtype=np.uint8)
 
 
 def mouse_action(event, x, y, flags, param):
-    global drawing, mask, ix, iy, fx, fy, Hi, Si, Vi, Hf, Sf, Vf, track_window, hsv, camshift, roi_hist, term_crit
+    global ix, iy, fx, fy, track_window, drawing, camshift, term_crit, roi_hist
     if event == cv2.EVENT_LBUTTONDOWN:
         drawing = True
         camshift = False
@@ -52,7 +52,7 @@ while True:
         box = np.int0(box)
         cv2.polylines(frame, [box], True, 255, 2)
 
-    if drawing:
+    elif drawing:
         cv2.rectangle(frame, (ix, iy), (fx, fy), (255, 0, 0), 1)
 
     cv2.imshow('Preview', frame)
