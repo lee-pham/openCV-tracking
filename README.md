@@ -2,7 +2,6 @@
 My attempt at the world of computer vision. More specifically, openCV with the Rasperry Pi 2 Model B and camera module.
 Written in Python.
 
-*Currently in progress: Auto upper and lower bound HSV selection*
 >In the `/clickdrag/` folder, I have uploaded two files that involve openCV's `HighGUI` modules. It involves creating a rectangular overlay by clicking and dragging the mouse around the Region of Interest (ROI). 
 >
 >For the static edition, an initial copy of the image is made, so when a new mouse callback occurs, the image will be reset to the original, and a new rectangle will be drawn. Having the copy, and recalling the copy prevents rectangles being overwritten on an image with rectanles already on it.
